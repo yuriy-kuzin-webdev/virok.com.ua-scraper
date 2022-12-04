@@ -1,25 +1,25 @@
 const scraperObject = {
     url: 'https://virok.com.ua/ua/katalog.html',
     async scraper(browser) {
-        let page = await browser.newPage()
+        const page = await browser.newPage()
         console.log(`Navigating to ${this.url}...`)
         await page.goto(this.url)
         // Wait for the required DOM to be rendered
         await page.waitForSelector('.jet')
-        let urls = await page.$$eval('li.item.last', links => {
+        const urls = await page.$$eval('li.item.last', links => {
             links = links.map(el => el.querySelector('.product-image > .img-caption .caption-block a').href)
             return links
         })
 
         //Looping throught each of the links, open a new page instance and get the relevant data from them
         const pagePromise = (link) => new Promise(async(resolve, reject) => {
-			let dataObj = {}
-			let newPage = await browser.newPage()
+			const dataObj = {}
+			const newPage = await browser.newPage()
 			await newPage.goto(link)
 			dataObj['article'] = await newPage.$eval('#product_addtocart_form > div.product-shop > div.number-sku', text => {
 				// Strip new line and tab spaces
 				text = text.textContent.replace(/(\r\n\t|\n|\r|\t)/gm, "")
-				return text.split(':')[1]
+				return text.split(':')[1].trimRight()
 			});
             
 			dataObj['imageUrl'] = await newPage.$eval('#image-main', img => img.src)
@@ -32,7 +32,7 @@ const scraperObject = {
 		});
 
         for(link in urls){
-			let currentPageData = await pagePromise(urls[link]);
+			const currentPageData = await pagePromise(urls[link]);
 			// scrapedData.push(currentPageData);
 			console.log(currentPageData);
 		}
