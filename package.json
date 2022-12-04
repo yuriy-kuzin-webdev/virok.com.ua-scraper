@@ -1,0 +1,19 @@
+{
+  "name": "virok.com.ua-parser",
+  "version": "1.0.0",
+  "description": "products parser for virok.com.ua website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuriy-kuzin-webdev/virok.com.ua-scraper.git"
+  },
+  "author": "Yuriy Kuzin <yuriy.kuzin.webdev@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuriy-kuzin-webdev/virok.com.ua-scraper/issues"
+  },
+  "homepage": "https://github.com/yuriy-kuzin-webdev/virok.com.ua-scraper#readme"
+}
