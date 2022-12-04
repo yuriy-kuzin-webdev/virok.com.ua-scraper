@@ -1,4 +1,4 @@
-const scrapperObject = {
+const scraperObject = {
     url: 'https://virok.com.ua/ua',
     async scrapper(browser) {
         let page = await browser.newPage()
@@ -7,4 +7,4 @@ const scrapperObject = {
     }
 }
 
-module.exports = scrapperObject
+module.exports = scraperObject
