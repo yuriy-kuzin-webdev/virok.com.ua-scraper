@@ -1,6 +1,6 @@
 const scraperObject = {
     url: 'https://virok.com.ua/ua/katalog.html',
-    async scraper(browser) {
+    async scraper(browser, resolver) {
         const page = await browser.newPage()
         console.log(`Navigating to ${this.url}...`)
         await page.goto(this.url)
@@ -42,8 +42,9 @@ const scraperObject = {
 			});
 
         	for(link in urls){
-				const currentPageData = await pagePromise(urls[link])
-				scrapedData.push(currentPageData)
+				pagePromise(urls[link])
+				.then(data => resolver(data))
+				.catch(e => console.log(e))
 			}
 
 			let nextButtonExist = false
@@ -60,9 +61,7 @@ const scraperObject = {
 			await page.close()
 			return scrapedData
     	}
-		let data = await scrapeCurrentPage()
-		console.log(data)
-		return data
+		await scrapeCurrentPage()
 	}
 }
 
